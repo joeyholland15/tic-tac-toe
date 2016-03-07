@@ -11,14 +11,34 @@ h1 {
   margin: 0 auto;
   height: 500px;
   width: 500px;
-}
-
-.row {
-  margin: 0;
-  text-align: center;
+  border-spacing: 0;
 }
 
 #board td {
-  background-color: beige;
+  width: 33%;
 }
+
+.row {
+  text-align: center;
+}
+
+.top {
+  border-bottom: 5px solid black;
+}
+
+.bottom {
+  border-top: 5px solid black;
+}
+
+.left {
+  border-right: 5px solid black;
+}
+
+.right {
+  border-left: 5px solid black;
+}
+
+
+
+
 
