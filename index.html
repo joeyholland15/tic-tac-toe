@@ -12,7 +12,9 @@
     <h1>Tic Tac Toe</h1>
     <table id="board">
       <tr class="row" id="row-1">
-        <td class="square top left" id="square-1"></td>
+        <td class="square top left" id="square-1" ng-click="toggleSquareOneImg(); toggleCurrent()">
+          <img src="{{squareOneImg}}"/>
+        </td>
         <td class="square top" id="square-2"></td>
         <td class="square top right" id="square-3"></td>
       </tr>

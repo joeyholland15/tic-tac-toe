@@ -16,6 +16,12 @@ h1 {
 
 #board td {
   width: 33%;
+  height: 33%;
+}
+
+img {
+  height: 100px;
+  width: 100px;
 }
 
 .row {
