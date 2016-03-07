@@ -10,6 +10,7 @@
 <body ng-app="TicTacToe">
   <div class="board-container" ng-controller="BoardController">
     <h1>Tic Tac Toe</h1>
+    <h5 ng-show="gameOver">{{gameOver}}</h5>
     <table id="board">
       <tr class="row" id="row-1">
         <td class="square top left" id="square-1" ng-click="toggleSquareImg('one')">
