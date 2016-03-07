@@ -19,10 +19,14 @@ angular.module('TicTacToe', [])
     }
     //first player will start as x
     $scope.current = "x"
+
+    //function for ng-click on any square. Will toggle image and player status for each
+    //sqaure on the board when clicked and update the current player as well. 
     $scope.toggleSquareImg = function (squareNumber) {
-      var img = $scope.current === "x" ? $scope.xImg : $scope.oImg; 
-      $scope.squares[squareNumber] = {clicked: true, player: $scope.current, img: img}; 
-      console.log('SQAURES', $scope.squares)
-      $scope.current === "x" ? $scope.current = "o" : $scope.current = "x";
+      if($scope.squares[squareNumber] === false) {
+        var img = $scope.current === "x" ? $scope.xImg : $scope.oImg; 
+        $scope.squares[squareNumber] = {clicked: true, player: $scope.current, img: img}; 
+        $scope.current === "x" ? $scope.current = "o" : $scope.current = "x";
+      }
     }
   })
