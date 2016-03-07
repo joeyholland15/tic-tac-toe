@@ -12,21 +12,37 @@
     <h1>Tic Tac Toe</h1>
     <table id="board">
       <tr class="row" id="row-1">
-        <td class="square top left" id="square-1" ng-click="toggleSquareOneImg(); toggleCurrent()">
-          <img src="{{squareOneImg}}"/>
+        <td class="square top left" id="square-1" ng-click="toggleSquareImg('one')">
+          <img ng-show="squares.one" src="{{squares.one.img}}"/>
         </td>
-        <td class="square top" id="square-2"></td>
-        <td class="square top right" id="square-3"></td>
+        <td class="square top" id="square-2" ng-click="toggleSquareImg('two')">
+          <img ng-show="squares.two" src="{{squares.two.img}}"/>
+        </td>
+        <td class="square top right" id="square-3" ng-click="toggleSquareImg('three')">
+          <img ng-show="squares.three" src="{{squares.three.img}}"/>
+        </td>
       </tr>
       <tr class="row" id="row-2">
-        <td class="square left" id="square-4"></td>
-        <td class="square" id="square-5"></td>
-        <td class="square right" id="square-6"></td>
+        <td class="square left" id="square-4" ng-click="toggleSquareImg('four')">
+          <img ng-show="squares.four" src="{{squares.four.img}}"/>
+        </td>
+        <td class="square" id="square-5" ng-click="toggleSquareImg('five')">
+          <img ng-show="squares.five" src="{{squares.five.img}}"/>
+        </td>
+        <td class="square right" id="square-6" ng-click="toggleSquareImg('six')">
+          <img ng-show="squares.six" src="{{squares.six.img}}"/>
+        </td>
       </tr>
       <tr class="row" id="row-3">
-        <td class="square bottom left" id="square-7"></td>
-        <td class="square bottom" id="square-8"></td>
-        <td class="square bottom right" id="square-9"></td>
+        <td class="square bottom left" id="square-7" ng-click="toggleSquareImg('seven')">
+          <img ng-show="squares.seven" src="{{squares.seven.img}}"/>
+        </td>
+        <td class="square bottom" id="square-8" ng-click="toggleSquareImg('eight')">
+          <img ng-show="squares.eight" src="{{squares.eight.img}}"/>
+        </td>
+        <td class="square bottom right" id="square-9" ng-click="toggleSquareImg('nine')">
+          <img ng-show="squares.nine" src="{{squares.nine.img}}"/>
+        </td>
       </tr>
     </table>
   </div>

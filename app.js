@@ -5,19 +5,24 @@ angular.module('TicTacToe', [])
     //paths for x and o images
     $scope.xImg = "./x.jpg"
     $scope.oImg = "./o.jpg"
+    //keeps track of which squares have been clicked
+    $scope.squares = {
+      one: false,
+      two: false,
+      three: false,
+      four: false,
+      five: false,
+      six: false,
+      seven: false,
+      eight: false,
+      nine: false
+    }
     //first player will start as x
     $scope.current = "x"
-    //function for toggling the current player between x and o
-    $scope.toggleCurrent = function() {
-      console.log('CURRENT', $scope.current);
+    $scope.toggleSquareImg = function (squareNumber) {
+      var img = $scope.current === "x" ? $scope.xImg : $scope.oImg; 
+      $scope.squares[squareNumber] = {clicked: true, player: $scope.current, img: img}; 
+      console.log('SQAURES', $scope.squares)
       $scope.current === "x" ? $scope.current = "o" : $scope.current = "x";
-    }
-    $scope.squareOneImg = '';
-    $scope.toggleSquareOneImg = function () {
-      if($scope.current === 'x') {
-        $scope.squareOneImg = $scope.xImg;
-      } else {
-        $scope.squareOneImg = $scope.oImg;
-      }
     }
   })
