@@ -14,9 +14,14 @@ h1, h5 {
   border-spacing: 0;
 }
 
+#board td {
+  width: 20%;
+  height: 20%;
+}
+
 img {
-  height: 100px;
-  width: 100px;
+  height: 80px;
+  width: 80px;
 }
 
 .row {
