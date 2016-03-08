@@ -12,7 +12,12 @@
     <h1>Tic Tac Toe</h1>
     <h5 ng-show="gameOver">{{gameOver}}</h5>
     <table id="board">
-      <tr class="row" id="row-1">
+      <tr class="row" ng-repeat="row in board">
+        <td ng-repeat="cell in row" ng-class="{top: cell.top, bottom: cell.bottom, right: cell.right, left: cell.left}">
+          <img src="{{image}}"/>
+        </td>
+      </tr>
+      <!-- <tr class="row" id="row-1">
         <td class="square top left" id="square-1" ng-click="toggleSquareImg('one')">
           <img ng-show="squares.one.clicked" src="{{squares.one.img}}"/>
         </td>
@@ -44,7 +49,7 @@
         <td class="square bottom right" id="square-9" ng-click="toggleSquareImg('nine')">
           <img ng-show="squares.nine.clicked" src="{{squares.nine.img}}"/>
         </td>
-      </tr>
+      </tr> -->
     </table>
   </div>
 </body>
