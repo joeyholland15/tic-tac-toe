@@ -21,7 +21,7 @@ angular.module('TicTacToe', [])
     //initialize board matrix
     $scope.board = []; 
 
-    $scope.createBoard = function() {
+    $scope.createMatrix = function() {
       //generate arrays to represent board rows (as many as $scope.rows)
       for(var i = 0; i < $scope.rows; i++) {
         var row = [];
@@ -49,8 +49,9 @@ angular.module('TicTacToe', [])
     }
 
     $scope.clearBoard = function() {
-      var boardContainer = angular.element(document.querySelector('#board .row'));
-      boardContainer.empty();
+      $scope.board = [];
+      $scope.endGameString = false;
+      $scope.createMatrix();
     }
 
     $scope.calcLinear = function(row, col) {
@@ -119,6 +120,6 @@ angular.module('TicTacToe', [])
       }
     } 
 
-    //initial createBoard call to create and display board
-    $scope.createBoard();
+    //initial createMatrix call to create and display board
+    $scope.createMatrix();
   })

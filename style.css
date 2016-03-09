@@ -24,7 +24,13 @@ img {
   width: 80px;
 }
 
+button {
+  margin-bottom: 10px;
+}
+
 #buttons {
+  margin-top: 10px;
+  margin-bottom: 10px;
   text-align: center;
 }
 
