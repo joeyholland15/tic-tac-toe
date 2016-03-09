@@ -6,11 +6,13 @@ angular.module('TicTacToe', [])
     $scope.xImg = "./x.jpg"
     $scope.oImg = "./o.jpg"
 
-    //boolean variable to keep track of whether or not the game is over
+    //initialize variable to represent string to show when the game is over
     $scope.gameOver;
 
+    //initialize turns variable to track how many turns have been played
     $scope.turns = 0; 
 
+    //initializes current variable to track the current player (starts with x)
     $scope.current = "x"
 
     //the number of rows on the board (defaults to 3)
@@ -51,25 +53,41 @@ angular.module('TicTacToe', [])
     //initial createBoard call to create and display board
     $scope.createBoard();
 
-    // $scope.calcWinner = function(row, col) {
-
-    // }
+    $scope.calcWinner = function(row, col, totalInRow) {
+      var hRow = 1;
+      var vRow = 1;
+      for(var i = 0; i < $scope.rows; i++) {
+        if(i !== row && $scope.board[i][col].play === $scope.current) {
+          hRow++
+        }
+        if(i !== row && $scope.board[row][i].play === $scope.current) {
+          vRow++
+        }
+      }
+      if(hRow === 5 || vRow === 5) {
+        $scope.gameOver = 'GAME Over'
+      }
+    }
     
     $scope.toggleCell = function(row, col) {
       //if the selected cell has not already been selected
       if(!$scope.board[row][col].clicked) {
+        //variable to hold the current play
+        var play = $scope.current;
         //set $scope image property to contain the appropriate image path
         $scope.image = $scope.current === "x" ? $scope.xImg : $scope.oImg;
         //sets the clicked property of the appropriate cell to true to ng-show image 
         $scope.board[row][col].clicked = true;
         //sets the image according to current player on that cell
         $scope.board[row][col].image = $scope.image;
+        //sets the play of the cell to the current play value
+        $scope.board[row][col].play = play
+        //run function to see if this play has ended the game NEED TO CALL BEFORE CHANGING CURRENT
+        $scope.calcWinner(row, col)
         //toggles current player between x and o
         $scope.current === "x" ? $scope.current = "o" : $scope.current = "x";
         //increment turns played
         $scope.turns++;
-        //run function to see if this play has ended the game
-        //$scope.calcWinner(row, col)
       }
     } 
   })
