@@ -24,6 +24,10 @@ img {
   width: 80px;
 }
 
+#buttons {
+  text-align: center;
+}
+
 .row {
   text-align: center;
 }

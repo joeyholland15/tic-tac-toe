@@ -10,7 +10,13 @@
 <body ng-app="TicTacToe">
   <div class="board-container" ng-controller="BoardController">
     <h1>Tic Tac Toe</h1>
-    <h5 ng-show="gameOver">{{gameOver}}</h5>
+    <h5 ng-show="endGameString">{{endGameString}}</h5>
+    <div id="buttons">
+      <button ng-click="clearBoard()">Restart</button>
+      <form ng-submit="createBoard()">
+        Change number of rows <input type='text' ng-model='rows'>
+      </form>
+    </div>
     <table id="board">
       <tr class="row" ng-repeat="row in board">
         <td ng-repeat="cell in row" ng-click="toggleCell($parent.$index, $index)" ng-class="{top: cell.top, bottom: cell.bottom, right: cell.right, left: cell.left}">
