@@ -3,8 +3,8 @@ angular.module("TicTacToe", [])
 //controller for the board container
 .controller("BoardController", function($scope) {
   //paths for x and o images
-  $scope.xImg = "./x.png";
-  $scope.oImg = "./o.png";
+  $scope.xImg = "./image/x.png";
+  $scope.oImg = "./image/o.png";
 
   //initialize boolean variable to represent whether or not game is over
   $scope.gameOver = false;
