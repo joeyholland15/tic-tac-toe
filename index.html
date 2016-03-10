@@ -9,19 +9,18 @@
 </head>
 <body ng-app="TicTacToe">
   <div class="board-container" ng-controller="BoardController">
-    <h1>Tic Tac Toe</h1>
-    <h5 ng-show="gameOver">Game Over!</h5>
+    <h1>{{header}}</h1>
     <div id="buttons">
-      <button ng-show="gameOver" ng-click="clearBoard()">Restart</button>
-      <form>
-        Change number of rows <input ng-change="clearBoard()" type='number' ng-model='rows'>
+      <form ng-show="!gameOver">
+        Change number of rows <input ng-change="clearBoard()" type='number' min='2' max="5" ng-model='rows'>
       </form>
+      <button ng-show="gameOver" ng-click="clearBoard()">Restart</button>
     </div>
     <table id="board">
       <tr class="row" ng-repeat="row in board">
-        <td ng-repeat="cell in row" ng-click="toggleCell($parent.$index, $index)" 
-        ng-class="{top: cell.top, bottom: cell.bottom, right: cell.right, left: cell.left}">
-          <img ng-show="cell.clicked" src="{{cell.image}}"/>
+        <td class="cell" ng-repeat="cell in row" ng-click="toggleCell($parent.$index, $index)" 
+        ng-class="{top: cell.top, bottom: cell.bottom, right: cell.right, left: cell.left, available: !cell.clicked}">
+          <img ng-show="cell.clicked" ng-class="{winner: cell.play === winner}" src="{{cell.image}}"/>
         </td>
       </tr>
     </table>
