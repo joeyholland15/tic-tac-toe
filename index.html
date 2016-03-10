@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Tic-Tac-Toe</title>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-  <link href='style.css' type="text/css" rel="stylesheet">
+  <link href="style.css" type="text/css" rel="stylesheet">
   <script src="app.js"></script>
 </head>
 <body ng-app="TicTacToe">
@@ -12,7 +12,7 @@
     <h1>{{header}}</h1>
     <div id="buttons">
       <form ng-show="!gameOver">
-        Change number of rows <input ng-change="clearBoard()" type='number' min='2' max="5" ng-model='rows'>
+        Change number of rows <input ng-change="clearBoard()" type="number" min="2" max="5" ng-model="rows">
       </form>
       <button ng-show="gameOver" ng-click="clearBoard()">Restart</button>
     </div>

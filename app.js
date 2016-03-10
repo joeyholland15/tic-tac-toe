@@ -1,19 +1,19 @@
 //angular module to set as ng-app
-angular.module('TicTacToe', [])
+angular.module("TicTacToe", [])
 //controller for the board container
-.controller('BoardController', function($scope) {
+.controller("BoardController", function($scope) {
   //paths for x and o images
-  $scope.xImg = "./x.png"
-  $scope.oImg = "./o.png"
+  $scope.xImg = "./x.png";
+  $scope.oImg = "./o.png";
 
-  //initialize variable to represent string to show when the game is over
+  //initialize boolean variable to represent whether or not game is over
   $scope.gameOver = false;
 
   //initialize turns variable to track how many turns have been played
   $scope.turns = 0; 
 
   //initializes current variable to track the current player (starts with x)
-  $scope.current = "X"
+  $scope.current = "X";
 
   //the number of rows on the board (defaults to 3)
   $scope.rows = 3; 
@@ -22,7 +22,7 @@ angular.module('TicTacToe', [])
   $scope.board = []; 
 
   //text to print at the top of the page, will default to game title
-  $scope.header = "Tic Tac Toe"
+  $scope.header = "Tic Tac Toe";
 
   //variable to recognize the winner when the game ends
   $scope.winner;
@@ -30,12 +30,13 @@ angular.module('TicTacToe', [])
   $scope.createMatrix = function() {
     //generate arrays to represent board rows (as many as $scope.rows)
     for(var i = 0; i < $scope.rows; i++) {
+      //initialize row array
       var row = [];
       //generate objects within those row arrays to represent cells
       for(var n = 0; n < $scope.rows; n++) {
         //give each cell a clicked status (each will be initialized as false)
         row[n] = {clicked: false}
-        //assign sides for which each cell will need a border
+        //assign properties to dictate which sides each cell will need a border for
         if(n !== 0) {
           row[n].right = true
         } 
@@ -58,7 +59,7 @@ angular.module('TicTacToe', [])
   $scope.clearBoard = function() {
     //reset board matrix
     $scope.board = [];
-    //reset the endGameString to hide it
+    //reset gameOver boolean
     $scope.gameOver = false;
     //reset the current player to x
     $scope.current = "X";
@@ -78,7 +79,8 @@ angular.module('TicTacToe', [])
     var rowCount = 1;
     //check possible horizontal and vertical rows for given coordinates
     for(var i = 0; i < $scope.rows; i++) {
-      //check if current is equal to current play if index isn't input row
+      //check if current cell's play is equal to current play if index 
+      //isn't input row coordinate (already counted)
       if(i !== row && $scope.board[i][col].play === $scope.current) {
         //if so, increment colCount
         colCount++
@@ -93,9 +95,10 @@ angular.module('TicTacToe', [])
     if(colCount === $scope.rows || rowCount === $scope.rows) {
       //set gameOver variable to true
       $scope.gameOver = true;
-      $scope.header = "Congratulations Player " + $scope.current + "!"
+      //set header to congratulate the winning player
+      $scope.header = "Congratulations Player " + $scope.current + "!";
+      //set winner to be the current player
       $scope.winner = $scope.current;
-
     }
   }
 
@@ -109,6 +112,7 @@ angular.module('TicTacToe', [])
     var play = board[row][col].play;
     //for loop to iterate through all numbers on either side of current coordinate
     for(var i = 1; i < length; i++) {
+      //check whether each cell in range is valid and if it is equal to the current play
       if(row - i >= 0 && col - i >= 0 && board[row - i][col - i].play === play) {
         leftToRight += 1;
       }
@@ -123,27 +127,28 @@ angular.module('TicTacToe', [])
       }
     }
     if(leftToRight === $scope.rows || rightToLeft === $scope.rows) {
+      //set gameOver variable to true
       $scope.gameOver = true;
-      $scope.header = "Congratulations Player " + $scope.current + "!"
+      //set header to congratulate the winning player
+      $scope.header = "Congratulations Player " + $scope.current + "!";
+      //set winner to be the current player
       $scope.winner = $scope.current;
     } 
   }
 
   $scope.setAttributes = function(row, col) {
-    //variable to hold the current play
-    var play = $scope.current;
     //set $scope image property to contain the appropriate image path
     $scope.image = $scope.current === "X" ? $scope.xImg : $scope.oImg;
-    //sets the clicked property of the appropriate cell to true to ng-show image 
+    //sets the clicked property of the clicked cell to true
     $scope.board[row][col].clicked = true;
     //sets the image according to current player on that cell
     $scope.board[row][col].image = $scope.image;
     //sets the play of the cell to the current play value
-    $scope.board[row][col].play = play
+    $scope.board[row][col].play = $scope.current
   }
   
   $scope.toggleCell = function(row, col) {
-    //if the selected cell has not already been selected
+    //if the clicked cell has not previously been clicked
     if(!$scope.board[row][col].clicked) {
       //set necessary properties on cell object with setAttributes method
       $scope.setAttributes(row, col);
@@ -153,9 +158,8 @@ angular.module('TicTacToe', [])
       $scope.calcDiagonal(row, col)
       //call to calcLinear to check for winning row
       $scope.calcLinear(row, col)
-      console.log($scope.winner);
       //if the game has ended in a tie
-      if($scope.turns === Math.pow($scope.rows, 2)) {
+      if($scope.turns === Math.pow($scope.rows, 2) && !$scope.gameOver) {
         //set gameOver property to true
         $scope.gameOver = true;
         //set header to reflect tie
