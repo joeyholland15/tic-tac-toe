@@ -7,7 +7,7 @@ angular.module('TicTacToe', [])
     $scope.oImg = "./o.jpg"
 
     //initialize variable to represent string to show when the game is over
-    $scope.endGameString;
+    $scope.gameOver = false;
 
     //initialize turns variable to track how many turns have been played
     $scope.turns = 0; 
@@ -48,9 +48,15 @@ angular.module('TicTacToe', [])
       }
     }
 
+    //function to clear the board after game ends, run on restart button click
     $scope.clearBoard = function() {
+      //reset board matrix
       $scope.board = [];
-      $scope.endGameString = false;
+      //reset the endGameString to hide it
+      $scope.gameOver = false;
+      //reset the current player to x
+      $scope.current = "x";
+      //re-create the matrix
       $scope.createMatrix();
     }
 
@@ -68,33 +74,42 @@ angular.module('TicTacToe', [])
         }
       }
       if(colCount === $scope.rows || rowCount === $scope.rows) {
-        $scope.endGameString = 'GAME Over'
+        $scope.gameOver = true;
       }
     }
 
-    $scope.calcDiagonal = function(row, col) {
-      console.log('in here');
-      var leftToRightCount = 1;
-      var rightToLeftCount = 1;
-      var max = row >= col ? row : col;
-      for(var i = 1; i < $scope.rows - max; i++) {
-        console.log($scope.board[row - i][col + i], $scope.board[row + i][col - i], $scope.board[row - i][col - i], $scope.board[row + i][col + i]);
-
-        // var rightToLeftRow = $scope.board[row - i][col + i] ? $scope.board[row - i][col + i].play : undefined
-        // var rightToLeftCol = $scope.board[row + i][col - i] ? $scope.board[row + i][col - i].play : undefined
-        // var leftToRightRow = $scope.board[row - i][col - i] ? $scope.board[row - i][col - i].play : undefined
-        // var leftToRightCol = $scope.board[row + i][col + i] ? $scope.board[row + i][col + i].play : undefined
-        // console.log($scope.board[row - i][col + i], $scope.board[row + i][col - i], $scope.board[row - i][col - i], $scope.board[row + i][col + i]);
-        // if((rightToLeftRow && rightToLeftRow === $scope.current) || (rightToLeftCol && rightToLeftRow === $scope.current)) {
-        //   rightToLeftCount++;
-        // } 
-        // if((leftToRightRow && leftToRightRow === $scope.current) || (leftToRightCol && leftToRightCol === $scope.current)) {
-        //   leftToRightCount++;
-        // }
-        // if(leftToRightCount === $scope.rows || rightToLeftCount === $scope.rows) {
-        //   $scope.endGameString = 'GAME Over'
-        // }
+    $scope.calcDiagonal = function(row, col, inRow) {
+      var leftToRight = 1;
+      var rightToLeft = 1;
+      var length = $scope.board.length; 
+      //$scope.board[row][col] is saved in play and is the one that was clicked
+      var play = $scope.board[row][col].play;
+      //result count, target is 5
+      for(var i = 1; i < length; i++) {
+        if(row - i >= 0 && col - i >= 0) {
+          if($scope.board[row - i][col - i].play === $scope.board[row][col].play ) {
+            leftToRight += 1;
+          }
+        }
+        if(row + i < length && col + i < length) {
+          if($scope.board[row + i][col + i].play === $scope.board[row][col].play) {
+            leftToRight += 1
+          }
+        }
+        if(row - i >= 0 && col + i < length) {
+          if($scope.board[row - i][col + i].play === $scope.board[row][col].play ) {
+            rightToLeft += 1;
+          }
+        }
+        if(row + i < length && col - i >= 0) {
+          if($scope.board[row + i][col - i].play === $scope.board[row][col].play ) {
+            rightToLeft += 1
+          }
+        }
       }
+      if(leftToRight === $scope.rows || rightToLeft === $scope.rows) {
+        $scope.gameOver = true;
+      } 
     }
     
     $scope.toggleCell = function(row, col) {
@@ -110,8 +125,7 @@ angular.module('TicTacToe', [])
         $scope.board[row][col].image = $scope.image;
         //sets the play of the cell to the current play value
         $scope.board[row][col].play = play
-        //run function to see if this play has ended the game NEED TO CALL BEFORE CHANGING CURRENT
-        //$scope.calcLinear(row, col)
+        $scope.calcDiagonal(row, col)
         $scope.calcLinear(row, col)
         //toggles current player between x and o
         $scope.current === "x" ? $scope.current = "o" : $scope.current = "x";
